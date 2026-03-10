@@ -1,5 +1,6 @@
 import winston, { Logger } from 'winston';
 import { ElasticsearchTransport, LogData, Transformer } from 'winston-elasticsearch';
+import apm from 'elastic-apm-node';
 
 const esTransformer: Transformer = (logData: LogData) => {
   return logData;
@@ -28,7 +29,7 @@ export const winstonLogger = (elasticsearchNode: string, name: string, level: st
   const esTransport: ElasticsearchTransport = new ElasticsearchTransport({
     level,
     transformer: esTransformer,
-    apm: undefined,
+    apm,
     clientOpts: {
       node: elasticsearchNode,
       maxRetries: 2,
