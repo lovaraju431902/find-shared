@@ -1,4 +1,5 @@
 {
+  "name":"@lovaraju431902/find-shared",
   "version": "0.0.1",
   "license": "MIT",
   "main": "index.ts",
@@ -18,7 +19,7 @@
     "trailingComma": "es5"
   },
   "keywords": [],
-  "name": "@lovaraju431902/find-shared",
+  
   "author": "Lovaraju",
   "repository": {
     "type": "git",

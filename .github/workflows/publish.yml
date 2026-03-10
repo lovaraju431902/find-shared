@@ -21,8 +21,8 @@ jobs:
       - run: npm run build
       - run: |
           echo @lovaraju431902:https://npm.pkg.github.com/ > build/.npmrc
-          echo '//npm.pkg.github.com/:_authToken=${FIND_SHARED_NPM_TOKEN}' >> build/.npmrc
+          echo '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}' >> build/.npmrc
       - run: npm publish  # this makes the package public
         working-directory: ./build
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
