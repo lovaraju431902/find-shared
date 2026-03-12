@@ -1,28 +1,67 @@
-name: Publish
+# name: Publish
+# on:
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches: [main]
+# jobs:
+#   publish:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: read
+#       packages: write
+#     steps:
+#       - uses: actions/checkout@v5
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: "20.x"
+#           registry-url: "https://npm.pkg.github.com"
+#           scope: "@lovaraju431902"
+#       - run: npm install
+#       - run: npm run build
+#       - run: |
+#           echo @lovaraju431902:https://npm.pkg.github.com/ > build/.npmrc
+#           echo '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}' >> build/.npmrc
+#       - run: npm publish --provenance --access public 
+#         working-directory: ./build
+#         env:
+#           NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+name: Publish to GitHub Packages
+
 on:
   push:
-    branches: [main]
+    branches: [main]          # ← consider changing to tags or releases only
   pull_request:
     branches: [main]
+
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
       packages: write
+      id-token: write         # ← REQUIRED for --provenance
+
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-node@v3
+
+      - uses: actions/setup-node@v4   # ← upgrade from v3
         with:
-          node-version: "20.x"
+          node-version: "20.x"          # or "22.x" / "24.x" for better support
           registry-url: "https://npm.pkg.github.com"
           scope: "@lovaraju431902"
-      - run: npm install
+
+      - run: npm ci                   # ← safer than npm install
+
       - run: npm run build
-      - run: |
-          echo @lovaraju431902:https://npm.pkg.github.com/ > build/.npmrc
-          echo '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}' >> build/.npmrc
-      - run: npm publish --provenance --access public 
-        working-directory: ./build
+
+      # No need to manually create .npmrc — setup-node already did it
+
+      - name: Publish package
+        run: npm publish --provenance --access public
+        working-directory: ./build     # keep only if package.json is really here
         env:
-          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
