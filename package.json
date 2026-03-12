@@ -1,6 +1,6 @@
 {
   "name":"@lovaraju431902/find-shared",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "main": "index.ts",
   "description": "Helpers library for Find app",

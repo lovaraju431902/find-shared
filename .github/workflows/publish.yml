@@ -22,7 +22,7 @@ jobs:
       - run: |
           echo @lovaraju431902:https://npm.pkg.github.com/ > build/.npmrc
           echo '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}' >> build/.npmrc
-      - run: npm publish 
+      - run: npm publish --provenance --access public 
         working-directory: ./build
         env:
           NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
