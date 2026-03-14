@@ -1,3 +1,28 @@
+// {
+//   "compilerOptions": {
+//     "declaration": true,
+//     "experimentalDecorators": true,
+//     "esModuleInterop": true,
+//     "allowSyntheticDefaultImports": true,
+//     "importHelpers": true,
+//     "lib": ["DOM", "esnext"],
+//     "module": "CommonJS",
+//     "moduleResolution": "node",
+//     "noEmitOnError": true,
+//     "outDir": "build",
+//     "rootDir": "./src",
+//     "sourceMap": true,
+//     "strict": true,
+//     "target": "es5",
+//     "emitDecoratorMetadata": true,
+//     "forceConsistentCasingInFileNames": true,
+//     "pretty": true,
+//     "resolveJsonModule": true,
+//   },
+//   "include": ["src"],
+//   "exclude": ["node_modules"]
+// }
+
 
 
 
@@ -6,24 +31,27 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "experimentalDecorators": true,
+    "declarationMap": true,              // optional, but good for debugging types
+    "emitDeclarationOnly": true,         // ← important if only types/build d.ts files (no JS emit needed if separate bundler use chestunnav)
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "importHelpers": true,
-    "lib": ["DOM", "esnext"],
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "lib": ["ES2022", "DOM"],            // updated to modern
+    "module": "NodeNext",                // ← key change (or ESNext if bundler)
+    "moduleResolution": "NodeNext",      // ← key change (or "bundler")
+    "target": "ES2022",                  // much better than es5
+    "strict": true,
     "noEmitOnError": true,
-    "outDir": "build",
+    "outDir": "build",                   // or "dist"
     "rootDir": "./src",
     "sourceMap": true,
-    "strict": true,
-    "target": "es5",
-    "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
     "pretty": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true                 // add if you have many deps
   },
   "include": ["src"],
-  "exclude": ["node_modules"]
-}
+  "exclude": ["node_modules", "build", "dist"]
+} 
